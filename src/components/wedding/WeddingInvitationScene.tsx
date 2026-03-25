@@ -2,25 +2,23 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Playfair_Display, Cormorant_Garamond, Montserrat } from "next/font/google";
+import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
 import { WEDDING_PHOTO_NAMES } from "@/lib/weddingPhotoSource";
 import AudioController from "@/components/ui/AudioController";
 
+const sansFont = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 const serifHeading = Playfair_Display({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600"],
 });
 
-const serifBody = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-const sansLabel = Montserrat({
-  subsets: ["latin"],
-  weight: ["300", "400"],
-});
+// Nội dung chính dùng sans để nhẹ và dễ đọc hơn
+const serifBody = sansFont;
+const sansLabel = sansFont;
 
 type PhotoItem = {
   id: string;
@@ -367,7 +365,7 @@ export default function WeddingInvitationScene() {
                 <div className="relative flex h-full flex-col">
                   <div className="text-center">
                     <p className={`text-[10px] uppercase tracking-[0.32em] text-[#7e6344]/80 ${sansLabel.className}`}>Trân Trọng Kính Mời</p>
-                    <h3 className={`mt-2 text-[44px] leading-none text-[#4f3824] ${serifBody.className}`}>Lễ Thành Hôn</h3>
+                    <h3 className={`mt-2 text-[44px] leading-none text-[#4f3824] ${serifHeading.className}`}>Lễ Thành Hôn</h3>
                   </div>
 
                   <div className="my-4 flex items-center justify-center">
