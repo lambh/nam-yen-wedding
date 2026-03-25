@@ -2,18 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
+import { Be_Vietnam_Pro, Cormorant_Garamond } from "next/font/google";
 import { WEDDING_PHOTO_NAMES } from "@/lib/weddingPhotoSource";
 import AudioController from "@/components/ui/AudioController";
 
 const sansFont = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
 });
 
-const serifHeading = Playfair_Display({
+// Serif mềm, trang nhã cho tiêu đề (ít "gắt" hơn Playfair)
+const serifHeading = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["500", "600"],
+  style: ["normal", "italic"],
 });
 
 // Nội dung chính dùng sans để nhẹ và dễ đọc hơn
