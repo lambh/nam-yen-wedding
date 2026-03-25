@@ -51,9 +51,9 @@ const seeded = (seed: number) => {
 const PHOTOS: PhotoItem[] = Array.from({ length: 32 }).map((_, index) => {
   const theta = index * 1.9;
   const ring = index % 4;
-  const radius = 150 + Math.sqrt(index + 1) * 148;
-  const wobbleX = Math.sin(index * 3.1) * 62;
-  const wobbleY = Math.cos(index * 2.3) * 56;
+  const radius = 90 + Math.sqrt(index + 1) * 92;
+  const wobbleX = Math.sin(index * 3.1) * 43;
+  const wobbleY = Math.cos(index * 2.3) * 39;
   const fileName = WEDDING_PHOTO_NAMES[index % WEDDING_PHOTO_NAMES.length];
   const r = seeded(index + 1);
   const isHero = r > 0.8 || index % 11 === 0;
@@ -356,7 +356,6 @@ export default function WeddingInvitationScene() {
             >
               <div className="absolute inset-0 flex [backface-visibility:hidden] flex-col items-center justify-center rounded-[6px] border border-[#c8b59b] bg-gradient-to-br from-[#fff9ef] via-[#f7ebd8] to-[#eedcc1] text-center shadow-[0_30px_60px_rgba(69,51,34,0.22)]">
                 <p className={`text-sm uppercase tracking-[0.22em] text-[#7b6244] ${serifHeading.className}`}>Wedding Invitation</p>
-                <h2 className={`mt-6 text-4xl text-[#5a4028] ${serifBody.className}`}>11 . 04 . 2026</h2>
                 <p className="mt-8 text-xs uppercase tracking-[0.22em] text-[#8a7358]">Chạm để mở thiệp</p>
               </div>
 
@@ -369,8 +368,6 @@ export default function WeddingInvitationScene() {
                   <div className="text-center">
                     <p className={`text-[10px] uppercase tracking-[0.32em] text-[#7e6344]/80 ${sansLabel.className}`}>Trân Trọng Kính Mời</p>
                     <h3 className={`mt-2 text-[44px] leading-none text-[#4f3824] ${serifBody.className}`}>Lễ Thành Hôn</h3>
-                    <p className={`mt-2 text-[17px] uppercase tracking-[0.08em] ${serifHeading.className}`}>Thứ Bảy, Ngày 11 Tháng 04 Năm 2026</p>
-                    <p className="mt-1 text-[14px] italic text-[#81674a]">(Tức ngày 24 tháng 02 năm Bính Ngọ)</p>
                   </div>
 
                   <div className="my-4 flex items-center justify-center">
@@ -401,6 +398,7 @@ export default function WeddingInvitationScene() {
                       </a>
                       <p className="mt-2 text-[11px] uppercase tracking-[0.14em] text-[#7e6344]/75">Thời gian</p>
                       <p className="text-[28px] leading-none">10:30</p>
+                      <p className="mt-1 text-[14px] italic text-[#81674a]">ngày 11/04</p>
                     </section>
 
                     <section className="text-center">
@@ -421,7 +419,8 @@ export default function WeddingInvitationScene() {
                         Cẩm Phả, Quảng Ninh
                       </a>
                       <p className="mt-2 text-[11px] uppercase tracking-[0.14em] text-[#7e6344]/75">Thời gian</p>
-                      <p className="text-[28px] leading-none">17:00</p>
+                      <p className="text-[28px] leading-none">18:00</p>
+                      <p className="mt-1 text-[14px] italic text-[#81674a]">ngày 10/04</p>
                     </section>
                   </div>
 
