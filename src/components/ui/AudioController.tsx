@@ -23,6 +23,7 @@ export default function AudioController() {
   const [isExpanded, setIsExpanded] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const hasInteracted = useRef(false);
+  const needsUserGesture = useRef(false);
 
   const goTo = useCallback((index: number) => {
     const next = ((index % TRACKS.length) + TRACKS.length) % TRACKS.length;
@@ -73,18 +74,56 @@ export default function AudioController() {
     if (!audio) return;
     audio.src = trackUrl(TRACKS[0]);
     audio.volume = 0.55;
-    hasInteracted.current = true;
-    audio.play().catch(() => {
-      // Autoplay blocked by browser policy — user must tap play manually
-      setIsPlaying(false);
-    });
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+        hasInteracted.current = true;
+        needsUserGesture.current = false;
+      })
+      .catch(() => {
+        // Autoplay blocked by browser policy — retry on first user interaction
+        setIsPlaying(false);
+        needsUserGesture.current = true;
+      });
   }, []);
+
+  // Retry autoplay on first user gesture if blocked
+  useEffect(() => {
+    if (!needsUserGesture.current) return;
+
+    const tryStart = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          hasInteracted.current = true;
+          needsUserGesture.current = false;
+          window.removeEventListener("pointerdown", tryStart);
+          window.removeEventListener("keydown", tryStart);
+        })
+        .catch(() => {});
+    };
+
+    window.addEventListener("pointerdown", tryStart, { once: true });
+    window.addEventListener("keydown", tryStart, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", tryStart);
+      window.removeEventListener("keydown", tryStart);
+    };
+  }, [isPlaying]);
 
   return (
     <>
       <audio
         ref={audioRef}
-        preload="none"
+        autoPlay
+        playsInline
+        preload="metadata"
       />
 
       <div
